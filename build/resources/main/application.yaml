@@ -1,0 +1,12 @@
+server:
+  port: 51000
+
+spring:
+  application:
+    name: Ticketing
+
+  data:
+    mongodb:
+      database: ticketing
+      host: localhost
+      port: 27017
