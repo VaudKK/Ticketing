@@ -2,6 +2,7 @@ package com.sda.ticketing.services.Impl;
 
 import com.sda.ticketing.Dto.BookingDto;
 import com.sda.ticketing.exceptions.BookingException;
+import com.sda.ticketing.exceptions.ErrorHandler;
 import com.sda.ticketing.models.Booking;
 import com.sda.ticketing.repository.BookingRepository;
 import com.sda.ticketing.services.BookingService;
@@ -56,7 +57,7 @@ public class BookingServiceImpl implements BookingService {
                     }
                 })
                 .switchIfEmpty(book(bookingDto))
-                .doOnError(this::handleError);
+                .doOnError(ErrorHandler::handleError);
     }
 
     @Override
@@ -103,9 +104,5 @@ public class BookingServiceImpl implements BookingService {
                 Calendar.getInstance().get(Calendar.MONTH) +
                 Calendar.getInstance().get(Calendar.DAY_OF_MONTH) +
                 RandomStringUtils.randomAlphanumeric(6).toUpperCase();
-    }
-
-    private void handleError(Throwable t){
-        t.printStackTrace();
     }
 }

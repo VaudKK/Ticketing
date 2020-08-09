@@ -8,6 +8,6 @@ import reactor.core.publisher.Mono;
 @Repository
 public interface SeatRepository extends ReactiveMongoRepository<Seat,String> {
 
-    Mono<Integer> countByChurchId(String churchId);
+    Mono<Long> countByChurchId(String churchId);
 
 }

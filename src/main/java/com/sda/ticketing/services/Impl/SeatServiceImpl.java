@@ -1,5 +1,6 @@
 package com.sda.ticketing.services.Impl;
 
+import com.sda.ticketing.exceptions.ErrorHandler;
 import com.sda.ticketing.models.Seat;
 import com.sda.ticketing.repository.SeatRepository;
 import com.sda.ticketing.services.SeatService;
@@ -20,20 +21,19 @@ public class SeatServiceImpl implements SeatService {
     }
 
     @Override
-    public Flux<Seat> createSeats(int seats, String churchId) {
-        List<Seat> seatList = new ArrayList<>();
-        for (int i = 0; i < seats ; i++) {
-            Seat seat = new Seat();
-            seat.setSeatNumber(i+1);
-            seatList.add(seat);
-        }
-        return seatRepository.saveAll(seatList);
-    }
-
-    @Override
     public Flux<Seat> addSeats(int seats, String churchId) {
         List<Seat> addedSeats = new ArrayList<>();
-        return null;
+        return seatRepository.countByChurchId(churchId)
+                .flatMapMany(integer -> {
+                    for (int i = 0; i < seats ; i++) {
+                        Seat seat = new Seat();
+                        seat.setSeatNumber(integer.intValue() + i+1);
+                        seat.setChurchId(churchId);
+                        addedSeats.add(seat);
+                    }
+                    return seatRepository.saveAll(addedSeats);
+                })
+                .doOnError(ErrorHandler::handleError);
     }
 
     @Override

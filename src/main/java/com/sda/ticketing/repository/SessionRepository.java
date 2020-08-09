@@ -1,6 +1,7 @@
 package com.sda.ticketing.repository;
 
 import com.sda.ticketing.models.Session;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
@@ -8,6 +9,8 @@ import reactor.core.publisher.Flux;
 @Repository
 public interface SessionRepository extends ReactiveMongoRepository<Session,String> {
 
-    Flux<Session> findByActive(boolean isActive);
+    Flux<Session> findByActive(boolean isActive, Pageable pageable);
+
+    Flux<Session> findByChurchIdAndActive(String churchId,boolean isActive,Pageable pageable);
 
 }

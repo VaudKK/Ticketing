@@ -5,8 +5,6 @@ import reactor.core.publisher.Flux;
 
 public interface SeatService {
 
-    Flux<Seat> createSeats(int seats,String churchId);
-
     Flux<Seat> addSeats(int seats,String churchId);
 
     Flux<Void> removeSeats(int seats,String churchId);

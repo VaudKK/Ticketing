@@ -7,6 +7,9 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @EqualsAndHashCode(callSuper = false)
 @Data
@@ -19,8 +22,12 @@ public class Church extends BaseModel {
     @Indexed
     private String churchName;
 
+    private String primaryContact;
+
+    private List<String> alternativeContacts = new ArrayList<>();
+
     private String location;
 
-    private Integer seatCount = 0;
+    private int seatCount = 0;
 
 }
