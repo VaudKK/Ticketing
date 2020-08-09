@@ -10,3 +10,6 @@ spring:
       database: ticketing
       host: localhost
       port: 27017
+
+  main:
+    allow-bean-definition-overriding: true

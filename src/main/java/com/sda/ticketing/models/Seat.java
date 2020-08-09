@@ -16,4 +16,6 @@ public class Seat extends BaseModel {
 
     private Integer seatNumber;
 
+    private String churchId;
+
 }
