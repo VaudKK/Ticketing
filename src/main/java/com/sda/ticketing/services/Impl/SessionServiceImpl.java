@@ -35,7 +35,7 @@ public class SessionServiceImpl implements SessionService {
                 .map(Church::getSeatCount)
                 .doOnNext(integer -> {
                     if(integer > sessionDto.getSeatsAvailable()){
-                        throw new SessionException("The seats allocated to this session are more than those available in the church");
+                        throw new SessionException("The seats allocated to this session are more than those available");
                     }
                 })
                 .flatMap(integer -> sessionRepository.save(session))

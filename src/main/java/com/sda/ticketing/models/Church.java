@@ -28,6 +28,6 @@ public class Church extends BaseModel {
 
     private String location;
 
-    private int seatCount = 0;
+    private int seatCount;
 
 }
