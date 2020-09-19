@@ -33,8 +33,8 @@ public class SessionServiceImpl implements SessionService {
         Session session = modelMapper.map(sessionDto,Session.class);
         return churchRepository.findById(sessionDto.getChurchId())
                 .map(Church::getSeatCount)
-                .doOnNext(integer -> {
-                    if(integer > sessionDto.getSeatsAvailable()){
+                .doOnNext(availableSeats -> {
+                    if(sessionDto.getSeatsAvailable()>availableSeats){
                         throw new SessionException("The seats allocated to this session are more than those available");
                     }
                 })

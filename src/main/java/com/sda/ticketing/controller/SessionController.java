@@ -3,6 +3,7 @@ package com.sda.ticketing.controller;
 import com.sda.ticketing.Dto.SessionDto;
 import com.sda.ticketing.models.Session;
 import com.sda.ticketing.services.SessionService;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -12,6 +13,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/sessions")
 public class SessionController {
 
@@ -32,15 +34,15 @@ public class SessionController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<Flux<Session>> getAllActiveSessions(@PageableDefault(size = 50,sort = "createdAt",
-                                                            direction = Sort.Direction.DESC) Pageable pageable){
-        return ResponseEntity.ok(sessionService.getActiveSessions(pageable));
+    public ResponseEntity<Flux<Session>> getAllActiveSessions(@RequestParam("page") int pageIndex,
+                                                              @RequestParam("size") int pageSize){
+        return ResponseEntity.ok(sessionService.getActiveSessions(PageRequest.of(pageIndex,pageSize,Sort.by("createdAt").descending())));
     }
 
     @GetMapping("/{churchId}")
     public ResponseEntity<Flux<Session>> getActiveSessions(@PathVariable String churchId,
-                                                           @PageableDefault(size = 50,sort = "createdAt",
-                                                                   direction = Sort.Direction.DESC) Pageable pageable){
-        return ResponseEntity.ok(sessionService.getActiveSessions(churchId,pageable));
+                                                           @RequestParam("page") int pageIndex,
+                                                           @RequestParam("size") int pageSize){
+        return ResponseEntity.ok(sessionService.getActiveSessions(churchId,PageRequest.of(pageIndex,pageSize,Sort.by("createdAt").descending())));
     }
 }
