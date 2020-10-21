@@ -9,10 +9,10 @@ public class BookingDto {
     private String userId;
 
     @NonNull
-    private Long attendanceDateTime = 0L;
+    private String churchId;
 
     @NonNull
-    private String churchId;
+    private Long bookingDate = 0L;
 
     @NonNull
     private String seatId;

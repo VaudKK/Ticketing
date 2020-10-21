@@ -13,6 +13,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.Calendar;
+import java.util.List;
 
 @Service("bookingService")
 public class BookingServiceImpl implements BookingService {
@@ -58,6 +59,16 @@ public class BookingServiceImpl implements BookingService {
                 })
                 .switchIfEmpty(book(bookingDto))
                 .doOnError(ErrorHandler::handleError);
+    }
+
+    @Override
+    public Flux<Booking> bookSeat(List<BookingDto> bookings) {
+        if(bookings.size()  > 5)
+            throw new BookingException("Maximum booking at a time is 5 seats");
+
+        //Flux.fromIterable(bookings)
+
+        return null;
     }
 
     @Override

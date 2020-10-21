@@ -5,6 +5,8 @@ import com.sda.ticketing.models.Booking;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.List;
+
 public interface BookingService {
 
     Mono<Booking> getBookingById(String bookingId);
@@ -14,6 +16,8 @@ public interface BookingService {
     Mono<Booking> cancelBooking(String bookingId);
 
     Mono<Booking> bookSeat(BookingDto bookingDto);
+
+    Flux<Booking> bookSeat(List<BookingDto> bookings);
 
     Mono<Booking> getBookingByTicketNo(String ticketNo);
 

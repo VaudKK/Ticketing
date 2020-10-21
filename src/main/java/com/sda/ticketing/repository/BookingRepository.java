@@ -19,4 +19,6 @@ public interface BookingRepository extends ReactiveMongoRepository<Booking,Strin
 
     Mono<Booking> findByTicketNo(String ticketNo);
 
+    Mono<Long> countBySeatIdAndSessionIdAndActive(String seatId,String sessionId,Boolean active);
+
 }

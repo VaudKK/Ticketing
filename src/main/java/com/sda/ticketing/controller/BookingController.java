@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/bookings")
 public class BookingController {
@@ -21,6 +23,11 @@ public class BookingController {
     @PostMapping("/book")
     public ResponseEntity<Mono<Booking>> bookSeat(@RequestBody BookingDto bookingDto){
         return ResponseEntity.ok(bookingService.bookSeat(bookingDto));
+    }
+
+    @PostMapping("/book/many")
+    public ResponseEntity<Flux<Booking>> bookSeats(@RequestBody List<BookingDto> bookings){
+        return ResponseEntity.ok(bookingService.bookSeat(bookings));
     }
 
     @PostMapping("/cancel")
