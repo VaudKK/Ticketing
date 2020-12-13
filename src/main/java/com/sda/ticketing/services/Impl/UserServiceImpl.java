@@ -47,6 +47,7 @@ public class UserServiceImpl implements UserService {
     public Mono<User> updateUser(User user) {
         return userRepository.findById(user.get_id())
                 .flatMap(u -> {
+                    u.setPassword(passwordEncoder.encode(u.getPassword()));
                     User updatedUser = modelMapper.map(u,User.class);
                     return userRepository.save(updatedUser);
                 });

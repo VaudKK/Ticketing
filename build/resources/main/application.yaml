@@ -13,3 +13,18 @@ spring:
 
   main:
     allow-bean-definition-overriding: true
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/auth/realms/dev
+          jwk-set-uri: http://localhost:8080/auth/realms/dev/protocol/openid-connect/certs
+
+keycloak:
+  realm: dev
+  resource: ticketing-service
+  auth-server-url: http://localhost:8080/auth
+  public-client: true
+  principal-attribute: user_name
+  ssl-required: external
